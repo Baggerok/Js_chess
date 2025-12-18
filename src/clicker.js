@@ -7,15 +7,12 @@ export function Clicker(){
 
         if (chosenPiece !== toTile && (!targetPiece || chosenPiece.firstElementChild.className !== targetPiece.className)){
             console.log(`${chosenPiece.id} to ${toTile.id}`);
-            // if tile is empty: do nothing
+            // if tile is empty: ignore
             try{toTile.removeChild(toTile.firstElementChild);}catch(Exception){};
             
             toTile.appendChild(chosenPiece.firstElementChild);
-            chosenPiece = null;
         }
-        else {
-            chosenPiece = null;
-        }
+        chosenPiece = null;
     }
 
     // logic holds on log exceptions :^| (pls fix in future)

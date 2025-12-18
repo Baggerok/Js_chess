@@ -7,40 +7,41 @@ const board = document.getElementById("board");
 let tiles = [];
 
 function createBoard(){
-    for (let i = 0; i < 64; i++) {
-        tiles[i] = document.createElement("div");
-        // change rows and check if tile is odd or even
-        if ((Math.floor(i / 8) + i % 8) % 2 === 0) {
-            tiles[i].className = "black";
-        }
-        else {
-            tiles[i].className = "white";
-        }
-        tiles[i].id = i.toString();
+    for (let i = 0; i < 8; i++) {
+        tiles[i] = [];
+        for (let j = 0; j < 8; j++) {
+            tiles[i][j] = document.createElement("div");
+             // change rows and check if tile is odd or even
+            if ((i + j) % 2 === 0) {
+                tiles[i][j].className = "black";
+            }
+            else {
+                tiles[i][j].className = "white";
+            }
+            tiles[i][j].id = `${i}-${j}`;
 
-        // give some style
-        tiles[i].style.width = "60px";
-        tiles[i].style.height = "60px";
+            // give some style
+            tiles[i][j].style.width = "60px";
+            tiles[i][j].style.height = "60px";
 
-        tiles[i].style.textAlign = "center";
-        tiles[i].style.alignContent = "center";
-        
-        tiles[i].onclick = clicker.handleClick;
-        // render ts
-        board.appendChild(tiles[i]);
+            tiles[i][j].style.textAlign = "center";
+            tiles[i][j].style.alignContent = "center";
+            
+            tiles[i][j].onclick = clicker.handleClick;
+            // render ts
+            board.appendChild(tiles[i][j]);
+        }
     }
 }
 
 function populateBoard(){
-    for (let i = 0; i < tiles.length; i++) {
-        let currentTile = tiles[i];
-
-        // first rows
-        if ((Math.floor(i / 8)) == 0 || (Math.floor(i / 8)) == (tiles.length / 8) - 1){
-            for (let j = 0; j < 8; j++) {
+    for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
+            // first rows
+            if ((i == 0 || i == 7)){
                 let piece = document.createElement("img");
                 // extend white, black pieces logic for side delection 
-                if (i >= 32) {
+                if (i == 7) {
                     piece.src = whitePieces[j];
                     piece.className = "whitePiece";
                 }
@@ -49,24 +50,23 @@ function populateBoard(){
                     piece.className = "blackPiece";
                 }
                 piece.textContent = piecesNames[j]
-                tiles[i+j].appendChild(piece);
+                tiles[i][j].appendChild(piece);
             }
-            i += 7;
-        }
-        // second rows
-        if ((Math.floor(i / 8)) == 1 || (Math.floor(i / 8)) == (tiles.length / 8) - 2){
-            let piece = document.createElement("img");
-            // extend white, black pieces logic for side delection 
-            if (i >= 32) {
-                piece.src = whitePieces[8];
-                piece.className = "whitePiece";
+            // second rows
+            if (i == 1 || i == 6){
+                let piece = document.createElement("img");
+                // extend white, black pieces logic for side delection 
+                if (i == 6 ) {
+                    piece.src = whitePieces[8];
+                    piece.className = "whitePiece";
+                }
+                else {
+                    piece.src = blackPieces[8];
+                    piece.className = "blackPiece";
+                }
+                piece.textContent = " pawn";
+                tiles[i][j].appendChild(piece);
             }
-            else {
-                piece.src = blackPieces[8];
-                piece.className = "blackPiece";
-            }
-            piece.textContent = " pawn";
-            currentTile.appendChild(piece);
         }
     }
 }
