@@ -1,7 +1,6 @@
 import {blackPieces, whitePieces, piecesNames} from "./chessPieces.js";
+import {Refery} from "./rules.js"
 import {Clicker} from "./clicker.js";
-
-const clicker = Clicker();
 
 const board = document.getElementById("board");
 let tiles = [];
@@ -70,6 +69,9 @@ function populateBoard(){
         }
     }
 }
+
+const ref = new Refery(tiles);
+const clicker = Clicker(ref);
 
 createBoard();
 populateBoard();
