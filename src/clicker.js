@@ -13,8 +13,8 @@ export function Clicker(ref){
             console.log(`${chosenPiece.id} to ${toTile.id}`);
             // if tile is empty: ignore
             try{toTile.removeChild(toTile.firstElementChild);}catch(Exception){};
+
             toTile.appendChild(chosenPiece.firstElementChild);
-            
             //sound :3
             if (targetPiece){
                 captureSound.play();
@@ -22,9 +22,10 @@ export function Clicker(ref){
             else {
                 moveSound.play();
             }
-            
         }
+        // reset cursor after false clicks and right ones
         switchCursor(false);
+
         chosenPiece = null;
     }
 
@@ -33,10 +34,12 @@ export function Clicker(ref){
         try {
             chosenPiece = event.currentTarget;
             console.log(`chose tile: ${(chosenPiece.id)} with ${chosenPiece.firstElementChild.textContent}`);
+            // switch cursor: selected piece
             switchCursor();
         }
         catch(Exception){
             chosenPiece = null;
+            // reset cursor to default
             switchCursor(false);
         }
     }
